@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>กำหนดการทริปส่งลูกเรียน ท่องเที่ยวสายฮาลาล นครศรีธรรมราช</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Prompt', 'Sukhumvit Set', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .container {
+            max-width: 100%;
+        }
+
+        h1 {
+            color: #046A38;
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #046A38;
+        }
+
+        .day-container {
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            background-color: white;
+        }
+
+        .day-header {
+            background-color: #046A38;
+            color: white;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .day-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            color: #046A38;
+            border-radius: 50%;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .schedule-item {
+            border-bottom: 1px solid #e9ecef;
+            padding: 12px 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .schedule-item:last-child {
+            border-bottom: none;
+        }
+
+        .schedule-time {
+            color: #046A38;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .schedule-time::before {
+            content: "⏱";
+            margin-right: 5px;
+        }
+
+        .schedule-activity {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .schedule-location {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .schedule-location::before {
+            content: "📍";
+            margin-right: 5px;
+        }
+
+        .location-maps {
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .maps-link {
+            display: inline-flex;
+            align-items: center;
+            color: #1A73E8;
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 3px 8px;
+            background-color: #E8F0FE;
+            border-radius: 12px;
+        }
+
+        .maps-link::before {
+            content: "🗺️";
+            margin-right: 5px;
+        }
+
+        .maps-link:hover {
+            background-color: #D2E3FC;
+        }
+
+        .schedule-phone {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            color: #555;
+            display: flex;
+            align-items: center;
+        }
+
+        .schedule-phone::before {
+            content: "📞";
+            margin-right: 5px;
+        }
+
+        .schedule-note {
+            font-size: 0.85rem;
+            background-color: #FFF3E0;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-top: 5px;
+            color: #E65100;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .schedule-note::before {
+            content: "📝";
+            margin-right: 5px;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #046A38;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-size: 1.2rem;
+        }
+
+        .toc {
+            background-color: white;
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .toc-title {
+            font-weight: bold;
+            color: #046A38;
+            margin-bottom: 10px;
+        }
+
+        .toc-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .toc-link {
+            background-color: #E8F0FE;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #1A73E8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>กำหนดการทริปส่งลูกเรียน ท่องเที่ยวสายฮาลาล นครศรีธรรมราช</h1>
+
+        <div class="toc">
+            <div class="toc-title">สารบัญวัน</div>
+            <div class="toc-links">
+                <a href="#day1" class="toc-link">วันที่ 1</a>
+                <a href="#day2" class="toc-link">วันที่ 2</a>
+                <a href="#day3" class="toc-link">วันที่ 3</a>
+                <a href="#day4" class="toc-link">วันที่ 4</a>
+                <a href="#day5" class="toc-link">วันที่ 5</a>
+            </div>
+        </div>
+
+        <!-- วันที่ 1 -->
+        <div id="day1" class="day-container">
+            <div class="day-header">
+                <div class="day-number">1</div>
+                <div>วันแรก - กรุงเทพฯ สู่ นครศรีธรรมราช</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">5:30</div>
+                <div class="schedule-activity">ออกเดินทางจากกรุงเทพฯ (อาหารเช้าเตรียมเอง)</div>
+                <div class="schedule-location">กรุงเทพฯ</div>
+                <div class="schedule-note">เตรียมขนมปัง/แซนด์วิชฮาลาล</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">8:30</div>
+                <div class="schedule-activity">พักรถระหว่างทาง (เพชรบุรี/ประจวบฯ)</div>
+                <div class="schedule-location">จุดพักรถ (ปั๊มน้ำมัน)</div>
+                <div class="schedule-note">เลือกปั๊มที่มีร้านค้าฮาลาล</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">12:30</div>
+                <div class="schedule-activity">อาหารกลางวัน: ครัวจีรพันธ์ มุสลิมฮาลาลฟู้ดส์</div>
+                <div class="schedule-location">ปั๊มเชลล์ ขาขาล่อง ถ.เอเชีย 41, อ.หลังสวน จ.ชุมพร</div>
+                <div class="location-maps">
+                    <a href="https://maps.app.goo.gl/pTZ7W26Wj1e7rXf48" target="_blank" class="maps-link">Google Maps</a>
+                </div>
+                <div class="schedule-phone">095-039-5193</div>
+                <div class="schedule-note">ร้านอาหารฮาลาลชื่อดัง</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">13:30</div>
+                <div class="schedule-activity">เดินทางต่อ (พักเข้าห้องน้ำ/ละหมาดตามมัสยิดข้างทาง)</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">18:30</div>
+                <div class="schedule-activity">อาหารเย็น: Green Always Cafe</div>
+                <div class="schedule-location">หมู่บ้านคีรีวง, อ.ลานสกา จ.นครศรีธรรมราช</div>
+                <div class="location-maps">
+                    <a href="https://maps.app.goo.gl/H4h4zU8U5yYhD8j77" target="_blank" class="maps-link">Google Maps</a>
+                </div>
+                <div class="schedule-phone">064-069-3878</div>
+                <div class="schedule-note">คาเฟ่ฮาลาลในหมู่บ้าน</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">19:30</div>
+                <div class="schedule-activity">เช็คอิน: มารวยโฮมสเตย์ คีรีวง</div>
+                <div class="schedule-location">มารวยโฮมสเตย์ คีรีวง</div>
+                <div class="location-maps">
+                    <a href="https://maps.app.goo.gl/jH9C5cMvj9N1h5c78" target="_blank" class="maps-link">Google Maps</a>
+                </div>
+                <div class="schedule-phone">086-792-5533</div>
+                <div class="schedule-note">โฮมสเตย์มุสลิม</div>
+            </div>
+        </div>
+
+        <!-- วันที่ 2 -->
+        <div id="day2" class="day-container">
+            <div class="day-header">
+                <div class="day-number">2</div>
+                <div>วันที่สอง - คีรีวง สู่ ขนอม</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">7:00</div>
+                <div class="schedule-activity">อาหารเช้า: ที่โฮมสเตย์ (ฮาลาล)</div>
+                <div class="schedule-location">มารวยโฮมสเตย์ คีรีวง</div>
+                <div class="schedule-phone">086-792-5533</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">8:00</div>
+                <div class="schedule-activity">เดินเล่นหมู่บ้านคีรีวง (สะพาน, เล่นน้ำลำธาร)</div>
+                <div class="schedule-location">สะพานบ้านคีรีวง</div>
+                <div class="location-maps">
+                    <a href="https://maps.app.goo.gl/81uLgT327596sUoA7" target="_blank" class="maps-link">Google Maps</a>
+                </div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">10:00</div>
+                <div class="schedule-activity">พักผ่อน: Good Time Cafe'</div>
+                <div class="schedule-location">Good Time Cafe', คีรีวง</div>
+                <div class="location-maps">
+                    <a href="https://maps.app.goo.gl/Y4q4J7G14U9X2h187" target="_blank" class="maps-link">Google Maps</a>
+                </div>
+                <div class="schedule-note">เจ้าของร้านเป็นมุสลิม</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">11:30</div>
+                <div class="schedule-activity">อาหารกลางวัน: ร้านครัวฮามีส</div>
+                <div class="schedule-location">หมู่บ้านคีรีวง</div>
+                <div class="schedule-note">ร้านข้าวแกงมุสลิมในคีรีวง</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">12:30</div>
+                <div class="schedule-activity">เดินทางไป อ.ขนอม</div>
+                <div class="schedule-note">แวะพักจุดชมวิวชายทะเลสิชล (ถ้ามีเวลา)</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">15:00</div>
+                <div class="schedule-activity">เช็คอิน: ที่พักในขนอม (แนะนำ: Needa Rock Resort / บ้านพักพูลวิลล่าแหลมประทับ)</div>
+                <div class="schedule-location">ขนอม</div>
+                <div class="schedule-note">พักผ่อน, เล่นน้ำทะเล (หาดในเพลา)</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">17:30</div>
+                <div class="schedule-activity">ชมพระอาทิตย์ตก</div>
+                <div class="schedule-location">หาดขนอม</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">18:30</div>
+                <div class="schedule-activity">อาหารเย็น: ครัวทะเลบังฮิต (อาหารอิสลาม)</div>
+                <div class="schedule-location">ขนอม</div>
+                <div class="location-maps">
+                    <a href="https://maps.app.goo.gl/mYk17Vf3uC1p7sUa8" target="_blank" class="maps-link">Google Maps</a>
+                </div>
+                <div class="schedule-phone">083-388-8190</div>
+                <div class="schedule-note">ซีฟู้ดฮาลาล</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">20:00</div>
+                <div class="schedule-activity">พักผ่อน</div>
+                <div class="schedule-location">ที่พัก (ขนอม)</div>
+            </div>
+        </div>
+
+        <!-- วันที่ 3 -->
+        <div id="day3" class="day-container">
+            <div class="day-header">
+                <div class="day-number">3</div>
+                <div>วันที่สาม - ล่องเรือขนอม สู่ ตัวเมืองนครศรีฯ</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">6:00</div>
+                <div class="schedule-activity">เตรียมตัว, เช็คเอาต์ (ฝากกระเป๋าได้)</div>
+                <div class="schedule-location">ที่พัก (ขนอม)</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">6:30</div>
+                <div class="schedule-activity">เดินทางไปท่าเรือแหลมประทับ</div>
+                <div class="schedule-location">ท่าเรือแหลมประทับ</div>
+                <div class="location-maps">
+                    <a href="https://maps.app.goo.gl/rV1nE3Vz9eL8Q2Jq9" target="_blank" class="maps-link">Google Maps</a>
+                </div>
+                <div class="schedule-note">นัดเรือล่วงหน้า (ตัวอย่าง: ไต๋ก้อง 080-313-8107)</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">7:00</div>
+                <div class="schedule-activity">ล่องเรือชมโลมาสีชมพู</div>
+                <div class="schedule-location">อ่าวขนอม-ทะเลท่านี่</div>
+                <div class="schedule-note">เหมาเรือ ~1,000-1,200 บาท/ลำ</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">8:00</div>
+                <div class="schedule-activity">แวะเกาะนุ้ยนอก (สักการะหลวงปู่ทวด, ดำน้ำตื้น)</div>
+                <div class="schedule-location">เกาะนุ้ยนอก</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">9:30</div>
+                <div class="schedule-activity">เดินทางกลับฝั่ง</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">10:00</div>
+                <div class="schedule-activity">ถึงท่าเรือ, เปลี่ยนเสื้อผ้า</div>
+                <div class="schedule-location">ท่าเรือแหลมประทับ</div>
+                <div class="schedule-note">เตรียมเสื้อผ้าสำรอง</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">10:30</div>
+                <div class="schedule-activity">ซื้อของฝาก/เครื่องดื่ม (ตลาดเช้าขนอม)</div>
+                <div class="schedule-location">ตลาดเช้าขนอม</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">11:30</div>
+                <div class="schedule-activity">อาหารกลางวัน: ครัวทะเลบังฮิต (ถ้าเมื่อวานยังไม่ได้ทาน)</div>
+                <div class="schedule-location">ขนอม</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">12:30</div>
+                <div class="schedule-activity">เดินทางไปตัวเมืองนครศรีฯ</div>
+                <div class="schedule-note">แวะมัสยิดท่าแพร้ง (ถ้าต้องการ)</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">14:00</div>
+                <div class="schedule-activity">เช็คอิน: Beloft Hotel</div>
+                <div class="schedule-location">Beloft Hotel, ตัวเมืองนครศรีฯ</div>
+                <div class="location-maps">
+                    <a href="https://maps.app.goo.gl/8B5wz7QkF8Wd812b9" target="_blank" class="maps-link">Google Maps</a>
+                </div>
+                <div class="schedule-phone">061-245-5559</div>
+                <div class="schedule-note">พักผ่อน</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">17:30</div>
+                <div class="schedule-activity">เที่ยวชุมชนตลาดแขก (มัสยิดนูรุลฮุดา, ขนมพื้นเมือง)</div>
+                <div class="schedule-location">ชุมชนตลาดแขก</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">18:30</div>
+                <div class="schedule-activity">อาหารเย็น: ตลาดโต้รุ่ง (ตลาดแขก)</div>
+                <div class="schedule-location">ตลาดโต้รุ่ง (ตลาดแขก)</div>
+                <div class="schedule-note">สวรรค์อาหารฮาลาลริมทาง</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">20:00</div>
+                <div class="schedule-activity">กลับที่พัก</div>
+                <div class="schedule-location">Beloft Hotel</div>
+            </div>
+        </div>
+
+        <!-- วันที่ 4 -->
+        <div id="day4" class="day-container">
+            <div class="day-header">
+                <div class="day-number">4</div>
+                <div>วันที่สี่ - เที่ยวเมืองนครศรีฯ</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">6:30</div>
+                <div class="schedule-activity">อาหารเช้า: Habib ฮาลาลฟู้ด (ติ่มซำฮาลาล)</div>
+                <div class="schedule-location">Habib ฮาลาลฟู้ด, ถ.พระคลัง</div>
+                <div class="location-maps">
+                    <a href="https://maps.app.goo.gl/74zE4bS5m265d2sVA" target="_blank" class="maps-link">Google Maps</a>
+                </div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">9:00</div>
+                <div class="schedule-activity">เที่ยวเมือง (วัดพระมหาธาตุฯ (ภายนอก), กำแพงเมือง, ศาลหลักเมือง, ศูนย์หัตถกรรมฯ, ร้าน OTOP)</div>
+                <div class="schedule-location">ตัวเมืองนครศรีฯ</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">11:30</div>
+                <div class="schedule-activity">วิสาหกิจชุมชนบ้านท่าซัก (กะปิ/ปลาเค็มฮาลาล, เรือชมป่าชายเลน)</div>
+                <div class="schedule-location">ชุมชนบ้านท่าซัก</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">12:30</div>
+                <div class="schedule-activity">อาหารกลางวัน: ครัวบังโสบ ฮาลาล</div>
+                <div class="schedule-location">ครัวบังโสบ ฮาลาล, ตัวเมืองนครศรีฯ</div>
+                <div class="location-maps">
+                    <a href="https://maps.app.goo.gl/L6r7r4mJqfJ1uWpD9" target="_blank" class="maps-link">Google Maps</a>
+                </div>
+                <div class="schedule-phone">093-580-5261</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">14:00</div>
+                <div class="schedule-activity">พักผ่อน</div>
+                <div class="schedule-location">Beloft Hotel</div>
+                <div class="schedule-note">เตรียมเอกสาร, จัดกระเป๋า</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">17:30</div>
+                <div class="schedule-activity">ช้อปปิ้ง (สหไทยพลาซ่า, เซ็นทรัล)</div>
+                <div class="schedule-location">ห้างสรรพสินค้า</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">18:30</div>
+                <div class="schedule-activity">อาหารเย็น: บังสะหมัด เบอร์เกอร์ฮาลาล / มาแกหมี่ (ก๋วยเตี๋ยวเรือฮาลาล)</div>
+                <div class="schedule-location">หน้า สภ.เมืองนครฯ / ทางไปโมคลาน</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">20:00</div>
+                <div class="schedule-activity">กลับที่พัก</div>
+                <div class="schedule-location">Beloft Hotel</div>
+            </div>
+        </div>
+
+        <!-- วันที่ 5 -->
+        <div id="day5" class="day-container">
+            <div class="day-header">
+                <div class="day-number">5</div>
+                <div>วันที่ห้า - ส่งลูกเข้าโรงเรียน</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">7:30</div>
+                <div class="schedule-activity">เช็คเอาต์, อาหารเช้า (โรงแรม/ร้านใกล้เคียง)</div>
+                <div class="schedule-location">Beloft Hotel / ร้านใกล้เคียง</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">8:30</div>
+                <div class="schedule-activity">เดินทางไป ร.ร. ประทีปศาสน์</div>
+                <div class="schedule-location">ร.ร. ประทีปศาสน์, ต.กำแพงเซา</div>
+                <div class="location-maps">
+                    <a href="https://maps.app.goo.gl/s99k26G1YpQoT4hG6" target="_blank" class="maps-link">Google Maps</a>
+                </div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">9:30</div>
+                <div class="schedule-activity">ถึงโรงเรียน, ลงทะเบียน, ยื่นเอกสาร</div>
+                <div class="schedule-location">ร.ร. ประทีปศาสน์</div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-time">11:00</div>
+                <div class="schedule-activity">อาหารกลางวัน: โรงอาหารโรงเรียน (ฮาลาล) / ครัวโรงเรียน (ฮาลาล)</div>
+                <div class="schedule-location">ร.ร. ประทีปศา
